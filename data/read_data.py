@@ -15,7 +15,7 @@ class ArchivoCSV(Archivo):
 
 
 
-archivo_kagle=ArchivoCSV('CVD_cleaned.csv')
+archivo_kagle=ArchivoCSV('data/data.csv')
 archivo_kagle.read_data()
 
 print(archivo_kagle.data)
