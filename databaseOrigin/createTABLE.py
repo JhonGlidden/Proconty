@@ -21,7 +21,7 @@ from psycopg2 import sql
 
 
 
-# Parámetros de conexión a tu base de datos
+# Parámetros 
 params = {
     "host"      : "localhost",
     "port"      : "5432",
@@ -30,21 +30,18 @@ params = {
     "password"  : "172314"
 }
 
-# Conectarse a la base de datos
+
 conn = psycopg2.connect(**params)
 
 # Crear un cursor
 cur = conn.cursor()
-
-
-# Create the table
 cur.execute("""
-CREATE TABLE IF NOT EXISTS dataprueba (
+CREATE TABLE IF NOT EXISTS dataorigen (
         Company VARCHAR(100),
         Date VARCHAR(100),
-        Close VARCHAR(100),
+        Closep VARCHAR(100),
         Volume VARCHAR(100),
-        Open VARCHAR(100),
+        Openp VARCHAR(100),
         High VARCHAR(100),
         Low VARCHAR(100)
 )""")
@@ -52,10 +49,9 @@ CREATE TABLE IF NOT EXISTS dataprueba (
 
 
 conn.commit()
-# Close the cursor object
+
 cur.close()
 
-# Close the connection to the database
 conn.close()
 
 

@@ -1,0 +1,49 @@
+import psycopg2
+import pyodbc
+
+# Conexión 
+pg_conn = psycopg2.connect(
+
+    host    = "localhost",
+    port     ="5432",
+    database  = "proconty",
+    user       ="postgres",
+    password  ="172314"
+)
+
+pg_cursor = pg_conn.cursor()
+select_query = 'SELECT * FROM dataorigen'
+pg_cursor.execute(select_query)
+rows = pg_cursor.fetchall()
+
+# Cerrar el cursor y la conexión a PostgreSQL
+pg_cursor.close()
+pg_conn.close()
+
+
+print(type(rows))
+
+####################################### SQL #######################################
+
+# Conexión a la base de datos SQL Server
+sql_conn = pyodbc.connect(
+    'DRIVER={SQL Server};'
+    'SERVER=jhonglidden;'
+    'DATABASE=sqlproconty;'
+    'UID=pro;'
+    'PWD=1123;'
+)
+
+sql_cursor = sql_conn.cursor()
+
+# Consulta INSERT para insertar los datos en la tabla en SQL Server
+insert_query = 'INSERT INTO datadestino (Company, Date, Closep, Volume, Openp, High, Low) VALUES (?, ?, ?, ?, ?, ?, ?)'
+sql_cursor.executemany(insert_query, rows)
+
+# Confirmar los cambios 
+sql_conn.commit()
+
+# Cerrar el cursor y la conexión a SQL Server
+sql_cursor.close()
+sql_conn.close()
+
